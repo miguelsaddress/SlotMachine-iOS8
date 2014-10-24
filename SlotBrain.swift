@@ -36,13 +36,13 @@ class SlotBrain {
         return [firstRow, secondRow, thirdRow]
     }
     
-    class func computeWinnings(slots: [[Slot]] ) -> Int {
+    class func computeWinnings(slots: [[Slot]] ) -> (winnings: Int, matches:(flush: Int, threeOfAKind:Int, straight:Int)) {
         var slotsInRows = self.unpackSlotIntoSlotRows(slots)
         var winnings = 0
         
         var flushWinCount = 0
         var threeOfAKindCount = 0
-        var straightWinAccount = 0
+        var straightWinCount = 0
         
         for slotRow in slotsInRows {
             if self.checkFlush(slotRow) {
@@ -59,7 +59,7 @@ class SlotBrain {
             
             if self.checkThreeInARow(slotRow) {
                 winnings += 15
-                straightWinAccount++
+                straightWinCount++
                 println("Three in a Row!")
             }
 
@@ -75,12 +75,12 @@ class SlotBrain {
             winnings += 50
         }
         
-        if straightWinAccount == 3 {
+        if straightWinCount == 3 {
             println("Mega Three in a Row!!")
             winnings += 1000
         }
         
-        return winnings
+        return (winnings: winnings, matches:(flush: flushWinCount, threeOfAKind:threeOfAKindCount, straight:straightWinCount))
     }
     
     class func checkFlush(slotRow: [Slot]) -> Bool {

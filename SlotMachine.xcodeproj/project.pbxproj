@@ -83,10 +83,10 @@
 		49FC971519F1242B00F258C1 /* SlotMachine */ = {
 			isa = PBXGroup;
 			children = (
-				498493B719F90A4B00C31182 /* SlotBrain.swift */,
 				49FC971819F1242B00F258C1 /* AppDelegate.swift */,
 				49FC971A19F1242B00F258C1 /* ViewController.swift */,
 				498493B319F7CF2F00C31182 /* Slot.swift */,
+				498493B719F90A4B00C31182 /* SlotBrain.swift */,
 				498493B519F7D14D00C31182 /* Factory.swift */,
 				49FC971C19F1242C00F258C1 /* Main.storyboard */,
 				49FC971F19F1242C00F258C1 /* Images.xcassets */,
