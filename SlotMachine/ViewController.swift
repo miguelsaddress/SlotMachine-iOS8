@@ -70,8 +70,10 @@ class ViewController: UIViewController {
     let kNumberOfSlots = 3 //rows per container
     
     
-    let tableColor = UIColor(red: 0.25, green: 0.85, blue: 0.3, alpha: 0.92)
-
+//    let tableColor = UIColor(red: 0.25, green: 0.85, blue: 0.3, alpha: 0.92)
+    let greenColor = UIColor(red: 0.53, green: 0.82, blue: 0.72, alpha: 0.82)
+    let blueColor = UIColor(red: 0.17, green: 0.47, blue: 0.81, alpha: 0.81)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -173,7 +175,7 @@ class ViewController: UIViewController {
         
         self.setupSecondContainer(self.secondContainer)
     }
-        
+    
     func showAlertWithtext(header: String = "Warning", message: String, style:UIAlertControllerStyle = UIAlertControllerStyle.Alert) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: style)
         var action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -203,9 +205,9 @@ class ViewController: UIViewController {
             height: (self.view.bounds.height * self.kSixth) - 40
         )
         self.firstContainer = UIView(frame: frame)
-        self.firstContainer.backgroundColor = UIColor.orangeColor()
+        self.firstContainer.backgroundColor = self.blueColor
         
-        self.firstContainer.layer.borderColor = UIColor.redColor().CGColor
+        self.firstContainer.layer.borderColor = self.blueColor.CGColor
         self.firstContainer.layer.borderWidth = CGFloat(3.0)
 
         //borders
@@ -232,7 +234,7 @@ class ViewController: UIViewController {
         //Adding title label
         self.titleLabel = UILabel(frame: frame)
         self.titleLabel.text = "Super Slots"
-        self.titleLabel.textColor = UIColor.yellowColor()
+        self.titleLabel.textColor = UIColor.whiteColor()
 
         // more fonts here http://iosfonts.com/
         self.titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
@@ -254,7 +256,7 @@ class ViewController: UIViewController {
         )
         
         self.secondContainer = UIView(frame: frame)
-        self.secondContainer.backgroundColor = self.tableColor
+        self.secondContainer.backgroundColor = self.greenColor
 
         self.view.addSubview(self.secondContainer)
         self.setupSecondContainer(self.secondContainer)
@@ -313,9 +315,8 @@ class ViewController: UIViewController {
 
         self.thirdContainer = UIView(frame: frame)
 //        let color = UIColor(red: 0.53, green: 0.82, blue: 0.72, alpha: 0.82)
-        let color = UIColor(red: 0.17, green: 0.47, blue: 0.81, alpha: 0.81)
         
-        self.thirdContainer.backgroundColor = color
+        self.thirdContainer.backgroundColor = self.blueColor
 
         self.view.addSubview(self.thirdContainer)
         self.setupThirdcontainer(self.thirdContainer)
@@ -457,7 +458,7 @@ class ViewController: UIViewController {
             height: container.bounds.height * self.kThird
         )
 
-        self.resetButton = self.makeButton(frame: frame, title:"Reset", action: "resetButtonPressed:")
+        self.resetButton = self.makeButton(frame: frame, title:"Reset", action: "resetButtonPressed:", textColor:UIColor.redColor())
         container.addSubview(self.resetButton)
     }
     
@@ -470,7 +471,7 @@ class ViewController: UIViewController {
             height: container.bounds.height * self.kThird
         )
         
-        self.betOneButton = self.makeButton(frame: frame, title:"Bet 1", action: "betOneButtonPressed:")
+        self.betOneButton = self.makeButton(frame: frame, title:"Bet 1", action: "betOneButtonPressed:", textColor: self.blueColor)
         container.addSubview(self.betOneButton)
     }
     
@@ -483,7 +484,7 @@ class ViewController: UIViewController {
             height: container.bounds.height * self.kThird
         )
         
-        self.betMaxButton = self.makeButton(frame: frame, title: "Bet Max", action: "betMaxButtonPressed:")
+        self.betMaxButton = self.makeButton(frame: frame, title: "Bet Max", action: "betMaxButtonPressed:", textColor: UIColor.orangeColor())
         container.addSubview(self.betMaxButton)
     }
     
@@ -497,21 +498,34 @@ class ViewController: UIViewController {
         )
 
         self.spinButton = self.makeButton(frame: frame, title: "Spin", action: "spinButtonPressed:",
-                                          backgroundColor:UIColor.orangeColor(), borderColor:UIColor.yellowColor())
+            backgroundColor:self.blueColor, borderColor:self.blueColor, textColor: UIColor.whiteColor())
         container.addSubview(self.spinButton)
     }
     
-    func makeButton(#frame:CGRect, title:String, action:String, backgroundColor: UIColor = UIColor.whiteColor(), borderColor: UIColor = UIColor.orangeColor()) -> UIButton {
-        
+    func makeButton(#frame:CGRect, title:String, action:String, backgroundColor: UIColor = UIColor.whiteColor(), borderColor: UIColor? = nil, textColor: UIColor? = nil) -> UIButton {
+        var borderColorVar: UIColor
+        if let bc = borderColor {
+            borderColorVar = borderColor!
+        } else {
+            borderColorVar = self.blueColor
+        }
+
+        var textColorVar: UIColor
+        if let tc = textColor {
+            textColorVar = textColor!
+        } else {
+            textColorVar = self.blueColor
+        }
+
         var btn = UIButton(frame: frame)
         btn.setTitle(title, forState: UIControlState.Normal)
-        btn.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        btn.setTitleColor(textColorVar, forState: UIControlState.Normal)
         btn.titleLabel?.font = UIFont(name: "Superclarendon-Bold", size: 12)
         btn.backgroundColor = backgroundColor
         
         btn.layer.masksToBounds = true
         btn.layer.cornerRadius = 25
-        btn.layer.borderColor = borderColor.CGColor
+        btn.layer.borderColor = borderColorVar.CGColor
         btn.layer.borderWidth  = CGFloat(2.0)
         
         btn.addTarget(self, action: Selector(action), forControlEvents: UIControlEvents.TouchUpInside)
