@@ -21,9 +21,23 @@ class ViewController: UIViewController {
     var slots:[[Slot]] = []
 
     //Game vars
-    var credits = 0
-    var currentBet = 0
-    var winnings = 0
+    var credits:Int = 0 {
+        didSet {
+            self.creditsLabel.text = "\(self.credits)"
+        }
+    }
+    var currentBet:Int = 0 {
+        didSet {
+            self.betLabel.text = "\(self.currentBet)"
+        }
+
+    }
+    var winnings:Int = 0 {
+        didSet {
+            self.winnerPaidLabel.text = "\(self.winnings)"
+        }
+
+    }
     
     //first container Labels
     var titleLabel: UILabel!
@@ -83,7 +97,6 @@ class ViewController: UIViewController {
             if self.currentBet < 5 {
                 self.currentBet += 1
                 self.credits -= 1
-                self.updateMainView()
             } else {
                 self.showAlertWithtext(message: "The maximum bet is 5 credits")
             }
@@ -98,7 +111,6 @@ class ViewController: UIViewController {
                 var creditsToBetMax = 5 - self.currentBet
                 self.currentBet += creditsToBetMax
                 self.credits -= creditsToBetMax
-                self.updateMainView()
             } else {
                 self.showAlertWithtext(message: "The maximum bet is 5 credits")
             }
@@ -139,7 +151,6 @@ class ViewController: UIViewController {
         }
 
         self.currentBet = 0
-        self.updateMainView()
     }
     
     func removeSlotImageViews() {
@@ -161,15 +172,8 @@ class ViewController: UIViewController {
         self.winnings = 0
         
         self.setupSecondContainer(self.secondContainer)
-        self.updateMainView()
     }
-    
-    func updateMainView() {
-        self.creditsLabel.text = "\(self.credits)"
-        self.betLabel.text = "\(self.currentBet)"
-        self.winnerPaidLabel.text = "\(self.winnings)"
-    }
-    
+        
     func showAlertWithtext(header: String = "Warning", message: String, style:UIAlertControllerStyle = UIAlertControllerStyle.Alert) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: style)
         var action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -308,7 +312,9 @@ class ViewController: UIViewController {
         )
 
         self.thirdContainer = UIView(frame: frame)
-        let color = UIColor(red: 0.53, green: 0.82, blue: 0.72, alpha: 0.82)
+//        let color = UIColor(red: 0.53, green: 0.82, blue: 0.72, alpha: 0.82)
+        let color = UIColor(red: 0.17, green: 0.47, blue: 0.81, alpha: 0.81)
+        
         self.thirdContainer.backgroundColor = color
 
         self.view.addSubview(self.thirdContainer)
